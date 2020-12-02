@@ -4,23 +4,19 @@ import operator
 from functools import reduce
 
 
-def compute_day_1_two_numbers(input_file):
-    content = open(input_file).readlines()
-    numbers = [int(num) for num in content]
-    sorted_numbers = sorted(numbers)
-    for num in sorted_numbers:
-        if (2020 - num) in sorted_numbers:
-            return num * ((2020 - num))
-
-
-def compute_day_1_three_numbers(input_file):
-    content = open(input_file).readlines()
-    numbers = [int(num) for num in content]
-    iter = itertools.combinations(numbers, 3)
+def compute_product(number_list, num_summands):
+    iter = itertools.combinations(number_list, num_summands)
     for it in iter:
         if sum(it) == 2020:
             return reduce(operator.mul, it, 1)
 
 
-print(compute_day_1_two_numbers("data_input.txt"))
-print(compute_day_1_three_numbers("data_input.txt"))
+def read_number_list(input_file):
+    content = open(input_file).readlines()
+    return [int(num) for num in content]
+
+
+if __name__ == "__main__":
+    read_number_list("data_input.txt")
+    print(compute_product(read_number_list("data_input.txt"), 2))
+    print(compute_product(read_number_list("data_input.txt"), 3))
